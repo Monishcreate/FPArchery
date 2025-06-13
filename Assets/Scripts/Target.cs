@@ -1,25 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public int hp = 25;
-    public bool isBullseyeHit = false;
+    private int hp = 25;
+    private int damageTaken = 0; // Track total non-bullseye damage
     public GameObject destructionEffect;
-    public GameObject triggerToNextLevel;
 
     public void TakeHit(int score)
     {
-        if (score == 25) // Bullseye hit
+        if (score == 25 && hp == 25) // Fresh bullseye kill
         {
-            isBullseyeHit = true;
-            hp = 0;
+            GameManager.Instance.AddScore(100);
+        }
+        else if (score == 25) // Bullseye after partial damage
+        {
+            int adjustedScore = 100 - damageTaken;
+            GameManager.Instance.AddScore(Mathf.Max(adjustedScore, 0));
         }
         else
         {
-            hp -= score;
+            GameManager.Instance.AddScore(score);
+            damageTaken += score;
         }
+
+        hp -= score;
 
         if (hp <= 0)
         {
@@ -32,9 +36,8 @@ public class Target : MonoBehaviour
         if (destructionEffect != null)
             Instantiate(destructionEffect, transform.position, Quaternion.identity);
 
-        if (triggerToNextLevel != null)
-            triggerToNextLevel.SetActive(true); // activates collider/trigger for next boards
-
+        GameManager.Instance.OnTargetDestroyed();
         Destroy(gameObject);
     }
 }
+

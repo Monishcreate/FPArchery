@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class BowDrawback : MonoBehaviour
 {
-    public float maxPower = 50f;
-    public float chargeRate = 20f;
+    private float maxPower = 50f;
+    private float chargeRate = 30f;
     public Slider powerBarFill;
-
+    public Image fillImage;
+    [SerializeField] private Color lowPowerColor = Color.green;
+    [SerializeField] private Color midPowerColor = new Color(1f, 0.65f, 0f);  // orange
+    [SerializeField] private Color highPowerColor = Color.red;
     private float currentPower = 0f;
     private bool isCharging = false;
 
@@ -36,6 +39,8 @@ public class BowDrawback : MonoBehaviour
     [SerializeField] private float pulledZ = -0.3f;      // how far back arrow pulls
     [SerializeField] private float loweredY = -0.05f;    // how far down arrow goes when bow is lowered
     private Vector3 initialArrowLocalPos;
+
+
 
 
     private void Start()
@@ -115,6 +120,16 @@ public class BowDrawback : MonoBehaviour
             if (powerBarFill != null)
             {
                 powerBarFill.value = currentPower;
+
+                float t = currentPower / maxPower;
+
+                if (fillImage != null)
+                {
+                    if (t < 0.5f)
+                        fillImage.color = Color.Lerp(lowPowerColor, midPowerColor, t * 2f);
+                    else
+                        fillImage.color = Color.Lerp(midPowerColor, highPowerColor, (t - 0.5f) * 2f);
+                }
             }
         }
 

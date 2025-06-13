@@ -59,7 +59,7 @@ public class ArrowImpact : MonoBehaviour
         {
             clipToPlay = impactSound;
         }
-        // Create a temporary GameObject at the impact location
+        // Create a temporary GameObject at the impact location for spatial audio :)
         if (clipToPlay != null)
         {
             GameObject tempGO = new GameObject("ImpactSound");
@@ -72,7 +72,7 @@ public class ArrowImpact : MonoBehaviour
 
             //diff pitch for each sound
             if (clipToPlay == impactSound)
-                source.pitch = Random.Range(0.9f, 1.1f);
+                source.pitch = Random.Range(0.9f, 1.1f); 
             else
                 source.pitch = Random.Range(0.98f,1.02f); 
 
@@ -92,7 +92,7 @@ public class ArrowImpact : MonoBehaviour
         }
 
 
-
+        //spawn particles
         if (impactEffectPrefab != null && impactSpawnPoint != null)
         {
             Instantiate(impactEffectPrefab, impactSpawnPoint.position, impactSpawnPoint.rotation);
@@ -103,14 +103,14 @@ public class ArrowImpact : MonoBehaviour
         string tag = collision.gameObject.tag;
         switch (tag)
         {
-            case "2": score = 2; GameManager.Instance.AddScore(score); break;
-            case "4": score = 4; GameManager.Instance.AddScore(score); break;
-            case "6": score = 6; GameManager.Instance.AddScore(score); break;
-            case "8": score = 8; GameManager.Instance.AddScore(score); break;
-            case "10": score = 10; GameManager.Instance.AddScore(score); break;
-            case "25": score = 25; GameManager.Instance.AddScore(score); break;
+            case "2": score = 2; break;
+            case "4": score = 4; break;
+            case "6": score = 6; break;
+            case "8": score = 8; break;
+            case "10": score = 10; break;
+            case "25": score = 25; break;
             default:
-                score = 0; GameManager.Instance.AddScore(score); break;
+                score = 0; break;
         }
 
         Target board = collision.transform.GetComponentInParent<Target>();

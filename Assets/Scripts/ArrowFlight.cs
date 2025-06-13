@@ -13,7 +13,7 @@ public class ArrowFlight : MonoBehaviour
     {
         if (rb.velocity.sqrMagnitude > 0.1f)
         {
-            transform.forward = rb.velocity.normalized;
+            transform.forward = rb.velocity.normalized; //This code is mainly to have the arrow rotate towards the direction its flying
         }
     }
 }
