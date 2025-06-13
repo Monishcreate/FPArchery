@@ -18,7 +18,6 @@
 
 ## 🐞 Known Bugs / Incomplete Features
 
-- Arrow may occasionally miss collision with target if fired at low velocity.
 - Pause menu may not disable all gameplay inputs fully.
 - Some polish elements like animations or sound effects might be missing or basic.
 - Mobile or WebGL input support not tested.
@@ -36,6 +35,6 @@
 
 ---
 
-Feel free to explore and modify the project. Enjoy the game!
+Enjoy the game!
 
 
